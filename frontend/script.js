@@ -85,6 +85,7 @@ window.addEventListener('load', revealOnScroll);
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    console.log('SUBIT DISPARADO'); //Checkpoint para achar erros
     clearErrors();
 
     let valid = true;
