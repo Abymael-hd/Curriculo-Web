@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 });
 
 //criando a rota
-app.post("https://curriculo-backend-h8a5.onrender.com/contato", async (req, res) => {
+app.post("/contato", async (req, res) => {
     //Pega os dados enviados pelo front
     const { nome, email, mensagem } = req.body;
 
