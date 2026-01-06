@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre Mim</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header class="hero">
+        <h1>Sobre Mim</h1>
+        <p class="intro">Conheça mais sobre minha trajetória, formação e interesses.</p>
+    </header>
+
+    <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="sobre.html">Sobre Mim</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="contato.html">Contato</a>
+    </nav>
+
+    <section class="container">
+    <h2>Biografia</h2>
+
+<!-- O que fez alinhar ao lado (display: flex)-->
+    <div style="
+        display: flex;
+        gap: 20px; 
+        align-items: center; 
+        flex-wrap: wrap;
+    ">
+        
+        <!-- Foto -->
+        <div class="photo-container">
+            <img src="E:\BACKUP DO NOIA\Desktop\Faculdade\Tecnologia Web\CurriculoWEB\image\Foto_Curriculo.jpg" 
+                 alt="Minha foto" 
+                 class="foto-perfil" 
+                 style="width:160px; height:160px; border-radius:50%; object-fit:cover; border:4px solid #4a90e2;" />
+        </div>
+
+        <!-- Texto ao lado -->
+        <div class="bio-text" style="max-width: 500px;">
+            <p>
+                Olá! Meu nome é Abymael e sou apaixonado por tecnologia, aprendizado constante e desenvolvimento pessoal.
+                Desde cedo, sempre tive curiosidade em entender como as coisas funcionam e isso acabou me levando ao mundo da programação.
+                Hoje, estudo e pratico desenvolvimento para evoluir minhas habilidades e construir projetos que realmente façam diferença.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+
+    <section class="container">
+        <h2>Formação</h2>
+        <ul>
+            <li><strong>Curso:</strong> Engenharia da Computação – ESAMC</li>
+            <li><strong>Período:</strong> Jan 2023 – Dez 2027</li>
+            <li><strong>Conhecimentos adquiridos:</strong> Lógica de programação, HTML, CSS, JavaScript, Java, Banco de Dados, C, Gestão, Estrtutura de dados, Arquitetura de Computadores e Desenho tecnico</li>
+        </ul>
+    </section>
+
+    <section class="container">
+        <h2>Interesses</h2>
+        <p>Algumas áreas que mais me interessam dentro e fora da tecnologia:</p>
+        <ul>
+            <li>Desenvolvimento Web</li>
+            <li>Automação e otimização de processos</li>
+            <li>Design e experiência do usuário (UX/UI)</li>
+            <li>Hardware e sistemas embarcados</li>
+            <li>Jogos, música, ciência e exploração espacial</li>
+        </ul>
+    </section>
+
+    <footer>
+        © 2025 - Abymael
+    </footer>
+
+    <button id="themeToggle" class="theme-btn">🌙</button>
+    <button id="btnTopo" onclick="voltarAoTopo()">Voltar ao topo</button>
+    <script src="script.js"></script>
+</body>
+</html>
