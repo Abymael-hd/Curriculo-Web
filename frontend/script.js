@@ -124,7 +124,7 @@ window.addEventListener('load', revealOnScroll);
 
     }
 
-fetch('https://curriculo-backend-h8a5.onrender.com', {
+fetch('https://curriculo-backend-h8a5.onrender.com/contato', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
