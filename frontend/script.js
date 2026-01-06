@@ -125,6 +125,7 @@ window.addEventListener('load', revealOnScroll);
 
     }
 
+console.log('VAI ENVIAR FETCH');
 fetch('https://curriculo-backend-h8a5.onrender.com/contato', {
   method: 'POST',
   headers: {
@@ -136,7 +137,10 @@ fetch('https://curriculo-backend-h8a5.onrender.com/contato', {
     mensagem: message
   })
 })
-.then(res => res.json())
+.then(res => {
+  console.log('RESPOSTA RECEBIDA', res.status);
+  return res.json();
+})
 .then(data => {
   console.log(data);
   successBox.style.display = 'block';
@@ -144,7 +148,7 @@ fetch('https://curriculo-backend-h8a5.onrender.com/contato', {
   form.reset();
 })
 .catch(err => {
-  console.error(err);
+  console.error('Erro no Fetch', err);
   alert('Erro ao enviar mensagem');
 });
 
