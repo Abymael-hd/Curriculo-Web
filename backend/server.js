@@ -12,8 +12,11 @@ const cors = require("cors");
 const app = express();
 //Libera acesso de outros domínios (ex: seu site).
 app.use(cors({
-  origin: 'https://curriculweb.netlify.app'
+  origin: 'https://curriculweb.netlify.app',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
 }));
+
 
 //Permite receber JSON no corpo da requisição.  (Sem isso, req.body fica undefined.)
 app.use(express.json());
@@ -40,11 +43,13 @@ app.post("/contato", async (req, res) => {
     //Envia o e-mail
     try {
         await transporter.sendMail({
-            from: `"Currículo Web" <${process.env.EMAIL_USER}>`,
-            to: process.env.EMAIL_USER,
-            subject: "Contato - Currículo Web",
-            text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
-        });
+        from: `"Currículo Web" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER,
+        replyTo: email, // 👈 MUITO IMPORTANTE
+        subject: "Contato - Currículo Web",
+        text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
+});
+
 
         //mensagens caso envie ou não o e-mail
         res.status(200).json({ sucesso: true });
