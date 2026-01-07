@@ -37,7 +37,7 @@ app.post("/contato", async (req, res) => {
     //Envia o e-mail
     try {
         await transporter.sendMail({
-            from: email,
+            from: `"Currículo Web" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,
             subject: "Contato - Currículo Web",
             text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
@@ -46,6 +46,7 @@ app.post("/contato", async (req, res) => {
         //mensagens caso envie ou não o e-mail
         res.status(200).json({ sucesso: true });
     } catch (err) {
+        console.error("Erro ao enviar email:", err);
         res.status(500).json({ erro: "Erro ao enviar e-mail" });
     }
 });
