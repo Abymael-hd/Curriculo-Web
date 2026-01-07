@@ -11,7 +11,10 @@ const cors = require("cors");
 //Cria o servidor.
 const app = express();
 //Libera acesso de outros domínios (ex: seu site).
-app.use(cors());
+app.use(cors({
+  origin: 'https://695dd0278870fd4ddaa4e8a9--curriculweb.netlify.app/'
+}));
+
 //Permite receber JSON no corpo da requisição.  (Sem isso, req.body fica undefined.)
 app.use(express.json());
 
