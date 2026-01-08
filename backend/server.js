@@ -1,65 +1,57 @@
-//Imports
-//le o arquivo .env e carrega variaveis secretas
+// Carrega variáveis de ambiente (.env ou Render)
 require("dotenv").config();
-//Importa o Express (framework de servidor).
-const express = require("express");
-//Biblioteca responsável por enviar e-mails.
-const nodemailer = require("nodemailer");
-//Permite que o front-end acesse o backend.
-const cors = require("cors");
 
-//Cria o servidor.
+const express = require("express");
+const cors = require("cors");
+const { Resend } = require("resend");
+
 const app = express();
-//Libera acesso de outros domínios (ex: seu site).
+
+// CORS – permite apenas seu frontend
 app.use(cors({
-  origin: 'https://curriculweb.netlify.app',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
+  origin: "https://curriculweb.netlify.app",
+  methods: ["POST"],
+  allowedHeaders: ["Content-Type"]
 }));
 
-
-//Permite receber JSON no corpo da requisição.  (Sem isso, req.body fica undefined.)
+// Permite JSON no body
 app.use(express.json());
 
-//configurando o e-mail
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
+// Inicializa Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-//criando a rota
+// Rota de contato
 app.post("/contato", async (req, res) => {
-    //Pega os dados enviados pelo front
-    const { nome, email, mensagem } = req.body;
+  const { nome, email, mensagem } = req.body;
 
-    //Valida os dados
-    if (!nome || !email || !mensagem) {
-        return res.status(400).json({ erro: "Dados inválidos" });
-    }
+  if (!nome || !email || !mensagem) {
+    return res.status(400).json({ erro: "Dados inválidos" });
+  }
 
-    //Envia o e-mail
-    try {
-        await transporter.sendMail({
-        from: `"Currículo Web" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER,
-        replyTo: email, // 👈 MUITO IMPORTANTE
-        subject: "Contato - Currículo Web",
-        text: `Nome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`
+  try {
+    await resend.emails.send({
+      from: "Currículo Web <onboarding@resend.dev>",
+      to: ["SEU_EMAIL@gmail.com"], // <-- coloque seu email aqui
+      reply_to: email,
+      subject: "Contato - Currículo Web",
+      html: `
+        <h2>Novo contato pelo site</h2>
+        <p><strong>Nome:</strong> ${nome}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mensagem:</strong></p>
+        <p>${mensagem}</p>
+      `
+    });
+
+    res.status(200).json({ sucesso: true });
+  } catch (err) {
+    console.error("Erro ao enviar email:", err);
+    res.status(500).json({ erro: "Erro ao enviar e-mail" });
+  }
 });
 
-
-        //mensagens caso envie ou não o e-mail
-        res.status(200).json({ sucesso: true });
-    } catch (err) {
-        console.error("Erro ao enviar email:", err);
-        res.status(500).json({ erro: "Erro ao enviar e-mail" });
-    }
-});
-
+// Porta (Render define automaticamente)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log("Servidor rodando na porta 3000");
+  console.log("Servidor rodando na porta " + PORT);
 });
