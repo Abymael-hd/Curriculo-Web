@@ -30,7 +30,7 @@ app.post("/contato", async (req, res) => {
 
   try {
     await resend.emails.send({
-      from: "Currículo Web <abymael202@gmail.com>",
+      from: "Currículo Web <onbooarding@resend.dev>",
       to: ["abymael202@gmail.com"], // <-- coloque seu email aqui
       reply_to: email,
       subject: "Contato - Currículo Web",
